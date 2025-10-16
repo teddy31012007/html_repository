@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Voter Eligibility</title>
+    <style>
+        body {
+
+
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 50%;
+            background-color: white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Voter Information</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Eligibility</th>
+        </tr>
+    </thead>
+    <tbody id="voterData">
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+
+    let name = prompt("Enter your name:");
+    let age = parseInt(prompt("Enter your age:"), 10);
+
+
+    let eligibility = (age >= 18) ? "Eligible to Vote" : "Not Eligible to Vote";
+
+
+    document.getElementById("voterData").innerHTML =
+        `<tr>
+            <td>${name}</td>
+            <td>${age}</td>
+            <td>${eligibility}</td>
+        </tr>`;
+</script>
+
+</body>
+</html>

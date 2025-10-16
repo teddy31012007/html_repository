@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thumbnail Image Gallery</title>
+<style>
+body {
+font-family: Arial, sans-serif; text-align: center;
+}
+ 
+.gallery { display: flex;
+flex-wrap: wrap; justify-content: center; gap: 15px;
+margin-top: 20px;
+}
+.gallery a img { width: 100px; height: 100px; object-fit: cover;
+border: 2px solid #ccc; border-radius: 8px; transition: transform 0.3s;
+}
+.gallery a img:hover { transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+<h1>My Screenshot Gallery</h1>
+<p>Click on a thumbnail to view the full-sized screenshot</p>
+
+<div class="gallery">
+<a href="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191449.png"target="_blank">
+<img src="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191449.png"alt="Screenshot 1">
+</a>
+<a href="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191536.png"target="_blank">
+ 
+<img src="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191536.png"alt="Screenshot 2">
+</a>
+<a href="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 192437.png"target="_blank">
+<img src="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 192437.png"alt="Screenshot 3">
+</a>
+  <a href="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191432.png"target="_blank">
+<img src="C:\Users\HP\OneDrive\Pictures\Screenshots\Screenshot 2024-12-31 191432.png"alt="Screenshot 4">
+</a>
+</div>
+</body>
+</html>

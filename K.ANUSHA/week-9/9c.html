@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Simple Registration</title>
+</head>
+<body>
+  <h3>Registration Form</h3>
+  <form onsubmit="return checkForm()">
+    Name: <input type="text" id="name"><br><br>
+    Mobile: <input type="text" id="mobile"><br><br>
+    Email: <input type="text" id="email"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    function checkForm() {
+      let name = document.getElementById("name").value;
+      let mobile = document.getElementById("mobile").value;
+      let email = document.getElementById("email").value;
+
+
+      if (name.length < 6 || !isNaN(name[0])) {
+        alert("Name must be at least 6 characters and start with a letter.");
+        return false;
+      }
+
+
+      if (mobile.length !== 10 || isNaN(mobile)) {
+        alert("Mobile must be 10 digits and only numbers.");
+        return false;
+      }
+
+
+      if (!email.includes("@") || !email.includes(".")) {
+        alert("Email must contain '@' and '.'");
+        return false;
+      }
+
+      alert("All fields are valid!");
+      return true;
+    }
+  </script>
+</body>
+</html>

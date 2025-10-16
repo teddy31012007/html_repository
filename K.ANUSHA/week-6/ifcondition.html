@@ -1,0 +1,31 @@
+<html>
+	<head>
+	<script>
+           	function check()
+		{
+			var u=document.getElementById("user").value;	
+			var p=document.getElementById("pwd").value;
+                        if ( u=="Aditya" && p=="Aditya"){
+				window.location.href="https://adityauniversity.in/";
+				}
+			else{
+				alert("Ivalid User Id or Password");
+   			}
+		}
+	</script>
+</head>
+<body>
+<center>
+<form>
+<h1> LOGIN PAGE </h1>
+Username:<input type="text" id="user" placeholder="Enter Username ">
+<br><br><br>
+Password:<input type="password" id="pwd" placeholder="Enter password " >
+<br><br><br>
+<input type="reset" value="Clear all" >
+<input type="button" value="Sign in" onclick="check()">
+</form>
+
+</center>
+</body>
+</html>

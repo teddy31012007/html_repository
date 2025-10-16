@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trash2Treasure — Prototype</title>
+  <style>
+    :root{--accent:#2e8b57;--bg:#f6fbf7;--card:#ffffff;--muted:#6b6b6b}
+    *{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}
+    body{margin:0;background:var(--bg);color:#0b2b17}
+    header{background:linear-gradient(90deg,#2e8b57, #4caf50);color:white;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+    header h1{margin:0;font-size:18px}
+    .container{max-width:1000px;margin:20px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(15,40,20,0.06)}
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(46,139,87,0.18)}
+    label{display:block;margin:8px 0 4px;font-size:13px;color:var(--muted)}
+    input,select{width:100%;padding:8px;border-radius:8px;border:1px solid #e6efe8}
+    .small{font-size:13px;color:var(--muted)}
+    ul{padding-left:18px;margin:8px 0}
+    .list-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed #eef6ee}
+    .muted{color:var(--muted)}
+    .center{display:flex;gap:8px;align-items:center}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}.tabs{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Trash2Treasure</h1>
+    <div>
+      <strong id="userName">Guest</strong>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      <main>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h2 style="margin:0">Recycle & Exchange</h2>
+            <div class="small muted">EcoPoints: <strong id="ecoPoints">0</strong></div>
+          </div>
+
+          <div class="tabs" style="margin-top:12px">
+            <button class="btn" onclick="showSection('recycle')">Recycle</button>
+            <button class="btn ghost" onclick="showSection('exchange')">Exchange</button>
+            <button class="btn ghost" onclick="showSection('prices')">Prices</button>
+          </div>
+
+          <section id="recycle" class="section">
+            <label>Material</label>
+            <select id="material">
+              <option value="paper">Paper</option>
+              <option value="cardboard">Cardboard</option>
+              <option value="bottle">Bottle</option>
+            </select>
+
+            <label id="qtyLabel">Weight (kg)</label>
+            <input id="quantity" type="number" min="0" step="0.1" value="1">
+
+            <label class="small">Upload Photo (optional)</label>
+            <input id="photo" type="file" accept="image/*">
+
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" onclick="estimatePrice()">Estimate Price</button>
+              <button class="btn ghost" onclick="addToCart()">Add to My Recyclables</button>
+            </div>
+
+            <div style="margin-top:12px" id="estimateBox" class="small muted"></div>
+
+            <hr style="margin:12px 0">
+            <h3 style="margin:0 0 8px 0">My Recyclables</h3>
+            <div id="cartList"></div>
+
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn" onclick="processRecycle('cash')">Recycle for Cash</button>
+              <button class="btn" onclick="processRecycle('points')">Exchange for EcoPoints</button>
+            </div>
+          </section>
+
+          <section id="exchange" class="section" style="display:none">
+            <h3 style="margin-top:0">Exchange Rewards</h3>
+            <p class="small muted">Redeem EcoPoints for items or discounts.</p>
+            <ul>
+              <li class="list-item"><span>Reusable Notebook</span><strong>200 pts</strong></li>
+              <li class="list-item"><span>Stainless Bottle</span><strong>500 pts</strong></li>
+              <li class="list-item"><span>10% Voucher (Eco-Shop)</span><strong>350 pts</strong></li>
+            </ul>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" onclick="redeem(200)">Redeem 200</button>
+              <button class="btn" onclick="redeem(500)">Redeem 500</button>
+            </div>
+          </section>
+
+          <section id="prices" class="section" style="display:none">
+            <h3 style="margin-top:0">Current Rates</h3>
+            <div id="priceTable"></div>
+            <p class="small muted">Prices are mock/demo values and can be updated by admin.</p>
+          </section>
+
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3 style="margin:0">Pickup Requests</h3>
+          <div id="pickupList" class="small muted" style="margin-top:8px"></div>
+        </div>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin:0">Profile</h3>
+          <p class="small muted" id="profileStats">No activity yet.</p>
+
+          <hr>
+          <label>Name</label>
+          <input id="nameInput" placeholder="Enter your name">
+          <label>Location</label>
+          <input id="locationInput" placeholder="City / Area">
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn" onclick="saveProfile()">Save</button>
+            <button class="btn ghost" onclick="resetApp()">Reset</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3 style="margin:0">Admin Panel</h3>
+          <p class="small muted">(Update mock prices)</p>
+          <label>Paper (₹ / kg)</label>
+          <input id="pricePaper" type="number" step="0.1">
+          <label>Cardboard (₹ / kg)</label>
+          <input id="priceCard" type="number" step="0.1">
+          <label>Bottle (₹ / piece)</label>
+          <input id="priceBottle" type="number" step="0.1">
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button class="btn" onclick="savePrices()">Update</button>
+            <button class="btn ghost" onclick="loadDefaultPrices()">Defaults</button>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer class="muted">Prototype — demo only. Built for ideathon.</footer>
+  </div>
+
+  <script>
+    // --- Mock app state persisted in localStorage ---
+    const STATE_KEY = 't2t_state_v1';
+
+    const defaultState = {
+      user:{name:'Guest',location:''},
+      ecoPoints:0,
+      recyclables:[],
+      prices:{paper:12,cardboard:8,bottle:4}, // ₹ per kg or per piece
+      pickups:[]
+    }
+
+    let state = loadState();
+    function loadState(){
+      try{const s=JSON.parse(localStorage.getItem(STATE_KEY));return s? s: JSON.parse(JSON.stringify(defaultState));}catch(e){return JSON.parse(JSON.stringify(defaultState));}
+    }
+    function saveState(){localStorage.setItem(STATE_KEY,JSON.stringify(state));renderAll();}
+
+    // --- UI helpers ---
+    function showSection(id){document.querySelectorAll('.section').forEach(s=>s.style.display='none');document.getElementById(id).style.display='block';}
+
+    function renderAll(){
+      document.getElementById('userName').innerText = state.user.name || 'Guest';
+      document.getElementById('ecoPoints').innerText = state.ecoPoints;
+      document.getElementById('profileStats').innerText = Recycled: ${state.recyclables.length} items • EcoPoints: ${state.ecoPoints};
+
+      // cart list
+      const cart = document.getElementById('cartList'); cart.innerHTML='';
+      if(state.recyclables.length===0){cart.innerHTML='<p class="small muted">No recyclables added yet.</p>'}
+      else{
+        state.recyclables.forEach((it,idx)=>{
+          const div=document.createElement('div');div.className='list-item';
+          div.innerHTML = <div><strong>${capitalize(it.material)}</strong> • ${it.quantity}${it.unit} <div class='small muted'>est: ₹${it.estimated.toFixed(2)}</div></div><div class='center'><button class='btn ghost' onclick='removeItem(${idx})'>Remove</button></div>;
+          cart.appendChild(div);
+        })
+      }
+
+      // price table
+      const pt = document.getElementById('priceTable');pt.innerHTML=<div class='small muted'>Paper: ₹${state.prices.paper.toFixed(2)} / kg</div><div class='small muted'>Cardboard: ₹${state.prices.cardboard.toFixed(2)} / kg</div><div class='small muted'>Bottle: ₹${state.prices.bottle.toFixed(2)} / piece</div>;
+
+      // pickup list
+      const pu = document.getElementById('pickupList');pu.innerHTML='';
+      if(state.pickups.length===0) pu.innerHTML='<div class="small muted">No pickups scheduled.</div>';
+      else state.pickups.forEach((p,i)=>{
+        pu.innerHTML += <div style="padding:6px 0;border-bottom:1px dashed #eef6ee">${p.date} • ${p.count} items • ${p.status}</div>;
+      });
+
+      // admin fields
+      document.getElementById('pricePaper').value = state.prices.paper;
+      document.getElementById('priceCard').value = state.prices.cardboard;
+      document.getElementById('priceBottle').value = state.prices.bottle;
+
+      // profile inputs
+      document.getElementById('nameInput').value = state.user.name==='Guest' ? '' : state.user.name;
+      document.getElementById('locationInput').value = state.user.location || '';
+
+      // estimate box clear
+      document.getElementById('estimateBox').innerText='';
+    }
+
+    function estimatePrice(){
+      const material = document.getElementById('material').value;
+      const qty = parseFloat(document.getElementById('quantity').value) || 0;
+      const unit = material==='bottle' ? ' pcs' : ' kg';
+      const price = calcEstimate(material,qty);
+      document.getElementById('estimateBox').innerText = Estimate for ${qty}${unit}: ₹${price.toFixed(2)} (or ${pointsForCash(price)} EcoPoints);
+    }
+
+    function calcEstimate(material,quantity){
+      const p = state.prices;
+      if(material==='paper') return p.paper * quantity;
+      if(material==='cardboard') return p.cardboard * quantity;
+      if(material==='bottle') return p.bottle * quantity;
+      return 0;
+    }
+
+    function addToCart(){
+      const material = document.getElementById('material').value;
+      const quantity = parseFloat(document.getElementById('quantity').value) || 0;
+      if(quantity<=0){alert('Enter a valid quantity');return}
+      const unit = material==='bottle'? ' pcs' : ' kg';
+      const est = calcEstimate(material,quantity);
+      state.recyclables.push({material,quantity,unit,estimated:est,created:Date.now()});
+      saveState();
+    }
+
+    function removeItem(idx){state.recyclables.splice(idx,1);saveState();}
+
+    function processRecycle(mode){
+      if(state.recyclables.length===0){alert('No items to recycle');return}
+      let total=0;state.recyclables.forEach(it=>total+=it.estimated);
+      if(mode==='cash'){
+        // mock payout — in real app integrate payment/generate invoice
+        alert(Recycling completed. You earned ₹${total.toFixed(2)} (mock).);
+      } else {
+        const pts = pointsForCash(total);
+        state.ecoPoints += pts;
+        alert(Exchanged for ${pts} EcoPoints.);
+      }
+      // schedule a pickup record
+      state.pickups.push({date:new Date().toLocaleString(),count:state.recyclables.length,status:'Completed'});
+      state.recyclables = [];
+      saveState();
+    }
+
+    function pointsForCash(amount){
+      // 1 ₹ = 1 eco point (demo). Adjustable
+      return Math.round(amount);
+    }
+
+    function redeem(points){
+      if(state.ecoPoints < points){alert('Not enough EcoPoints');return}
+      state.ecoPoints -= points;
+      alert('Redeemed: a reward will be processed (demo).');
+      saveState();
+    }
+
+    function saveProfile(){
+      const n = document.getElementById('nameInput').value.trim() || 'Guest';
+      const l = document.getElementById('locationInput').value.trim();
+      state.user.name = n;state.user.location = l;saveState();
+    }
+
+    function savePrices(){
+      const p = parseFloat(document.getElementById('pricePaper').value) || state.prices.paper;
+      const c = parseFloat(document.getElementById('priceCard').value) || state.prices.cardboard;
+      const b = parseFloat(document.getElementById('priceBottle').value) || state.prices.bottle;
+      state.prices = {paper:p,cardboard:c,bottle:b};saveState();
+    }
+
+    function loadDefaultPrices(){state.prices = JSON.parse(JSON.stringify(defaultState.prices));saveState();}
+
+    function resetApp(){if(confirm('Reset demo data?')){localStorage.removeItem(STATE_KEY);state = loadState();renderAll();}}
+
+    function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+
+    // init
+    renderAll();
+  </script>
+</body>
+</html>

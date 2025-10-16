@@ -1,0 +1,22 @@
+<html>
+<head>
+	<script>
+		function reverse()
+		{
+			var a=parseInt(prompt("Enter a value"));
+			var r=0;
+			var t;
+			while(a>0)
+			{
+				r=a%10;
+				t=t*10+r;
+				a=a/10;
+			}
+			document.write(rev);
+		}
+	</script>
+</head>
+<body>
+<input onload="reverse();">
+</body>
+</html>

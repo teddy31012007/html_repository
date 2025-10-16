@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birds of the World</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fcff;
+      color: #333;
+    }
+    header {
+      background: url('https://images.unsplash.com/photo-1501700493788-fa1a9e5c5f4b?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px #000;
+    }
+    header p {
+      font-size: 1.3em;
+      text-shadow: 1px 1px 3px #000;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .species-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin: 10px 0;
+    }
+    .fun-facts {
+      background: #e8f4fa;
+      border-left: 5px solid #3498db;
+      padding: 20px;
+      margin-top: 40px;
+      line-height: 1.6;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      height: 200px;
+      object-fit: cover;
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Birds of the World</h1>
+    <p>Explore the beauty and diversity of birdlife across our planet</p>
+  </header>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Birds are fascinating creatures that come in all shapes, colors, and sizes. With over 10,000 species worldwide,
+      they play vital roles in ecosystems, from pollination to pest control. Let's take a closer look at some of these amazing animals.
+    </p>
+  </section>
+
+  <section>
+    <h2>Popular Bird Species</h2>
+    <div class="species-grid">
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/House_sparrow04.jpg/320px-House_sparrow04.jpg" alt="Sparrow">
+        <h3>Sparrow</h3>
+      </div>
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Peacock_Plumage.jpg/320px-Peacock_Plumage.jpg" alt="Peacock">
+        <h3>Peacock</h3>
+      </div>
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Peregrine_Falcon.jpg/320px-Peregrine_Falcon.jpg" alt="Falcon">
+        <h3>Peregrine Falcon</h3>
+      </div>
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Parrot.jpg/320px-Parrot.jpg" alt="Parrot">
+        <h3>Parrot</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="fun-facts">
+    <h2>Fun Facts About Birds</h2>
+    <ul>
+      <li>The smallest bird is the bee hummingbird – just 5.5 cm long!</li>
+      <li>Ostriches can't fly, but they can run up to 70 km/h.</li>
+      <li>Some parrots can mimic human speech.</li>
+      <li>Peregrine falcons dive at speeds over 300 km/h – the fastest animals on Earth.</li>
+      <li>Birds have hollow bones to help them fly.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1602526219130-e7aaf13a3f56?auto=format&fit=crop&w=600&q=80" alt="Bird">
+      <img src="https://images.unsplash.com/photo-1523413997010-c6c5f7b9322c?auto=format&fit=crop&w=600&q=80" alt="Bird 2">
+      <img src="https://images.unsplash.com/photo-1583321500900-89459a2a67b1?auto=format&fit=crop&w=600&q=80" alt="Bird 3">
+      <img src="https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?auto=format&fit=crop&w=600&q=80" alt="Bird 4">
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Birds of the World. Follow us on 
+    <a href="https://instagram.com" target="_blank">Instagram</a> | 
+    <a href="mailto:info@birdworld.org">Email Us</a>
+  </footer>
+
+</body>
+</html>
